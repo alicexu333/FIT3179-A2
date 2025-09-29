@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Australia Bushfires Map</title>
+  <script src="js/vega.min.js"></script>
+  <script src="js/vega-lite.min.js"></script>
+  <script src="js/vega-embed.min.js"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    vegaEmbed("#vis", "symbol_map_aus.vg.json");
+  </script>
+</body>
+</html>
