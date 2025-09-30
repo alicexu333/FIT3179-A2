@@ -15,7 +15,7 @@
 
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/Project%202/DV2/js/australia.topojson",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/js/australia.topojson",
         "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
       "mark": { "type": "geoshape", "fill": "#e6e6e6", "stroke": "white" }
@@ -23,7 +23,7 @@
 
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/Project%202/DV2/data/fires_sample.csv",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/fires_sample.csv",
         "format": { "type": "csv" }
       },
       "transform": [
