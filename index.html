@@ -3,26 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Australia Bushfires Map</title>
-
+  <title>Australia Bushfires & Koalas</title>
 
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .vis { max-width: 900px; margin: 0 auto; }
+    .card { padding: 16px; border: 1px solid #eee; border-radius: 12px; margin: 16px auto; max-width: 1100px; }
+    .card h2 { margin-top: 0; }
+    .frame { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .map-center { display: block; margin: 0 auto; }
+
+    .row { display: flex; gap: 16px; align-items: flex-start; }
+    .col { flex: 1; }
+    .col.viscol { flex: 2; }     
+    @media (max-width: 900px) { .row { flex-direction: column; } } 
+
+    .left-desc {
+      padding: 0 16px;
+      line-height: 1.6;
+      color: #333;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="frame">
+    <h1>Wildfires & Koalas</h1>
+    <p class="lead">Mapping the impact of bushfires on koala habitats in Australia</p>
+
+    <div class="card">
+      <h2>Australia bushfires map</h2>
+      <div id="fire_map" class="vis"></div>
+      <div class="desc">
+        <h3 style="margin:12px 0 6px">About this map</h3>
+        <p>Australia wildfires, 2019-2020: size = FRP, color = year; hotspots on the east coast.</p>
+      </div>
+    </div>
 
 
-  <div id="fire_map"></div>
+<div class="card">
+  <h2>Fire vs. Forest area by state (2019-20)</h2>
+  <div class="row">
+    <div class="col">
+      <div class="left-desc">
+        <p>
+          The 2019-20 Black Summer fires caused major ecological loss. This chart
+          compares each state/territor's total burned area with the portion that was
+          forest.</p>
+        <p>
+          Highlights: <strong>NSW</strong> shows the largest forest overlap (~5.1M ha), reflecting
+          dense east-coast forests. <strong>Victoria</strong> (~1.46M ha) and <strong>Western Australia</strong>
+          (~1.14M ha) also record substantial forest area burned, while <strong>ACT</strong> and
+          <strong>NT</strong> remain low. Hover to highlight bars.
+        </p>
+      </div>
+    </div>
+    <div class="col viscol">
+      <div id="fire_forest_bars" class="vis"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card">
+  <h2>Koala Sightings by Month (2020)</h2>
+  <div class="row">
+
+    <div class="col viscol">
+      <div id="koala_month_brush" class="vis"></div>
+    </div>
+    <div class="col">
+      <div class="left-desc">
+        <p style="margin-top:0">
+          Sightings dip in <strong>winter (Jun-Jul)</strong>, rise through spring, and
+          peak in <strong>Oct-Nov</strong>, likely reflecting seasonal activity and
+          post-fire habitat recovery after 2019-20.
+        </p>
+        <p>
+          Use the lower overview to brush a time window and zoom the top chart.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <script>
-    vegaEmbed("#fire_map", "js/symbol_map_aus.vg.json", {
-      renderer: "svg",
-      actions: false
-    }).catch(console.error);
+    vegaEmbed("#fire_map", "js/symbol_map_aus.vg.json", { renderer: "svg", actions: false })
+      .catch(console.error);
+
+    vegaEmbed("#fire_forest_bars", "js/grouped_bars.vg.json", { renderer: "svg", actions: false })
+      .catch(console.error);
+
+    vegaEmbed("#koala_month_brush", "js/line_fire_koala_2020.vg.json", { renderer: "svg", actions: false })
+      .catch(console.error);
   </script>
 </body>
 </html>
