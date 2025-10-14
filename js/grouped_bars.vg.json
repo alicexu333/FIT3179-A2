@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Fire vs. Forest Area by State (2019-20 Bushfire Season)",
+  "width": 450,
+  "height": 250,
+  "data": {
+    "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/data/fire_forest_by_state.csv"
+  },
+  "transform": [
+    { "fold": ["Fire area", "Forest area in fire area"], "as": ["Category", "Area"] },
+    { "calculate": "toNumber(datum.Area)", "as": "Area" }
+  ],
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "fireBarHover",
+          "select": { "type": "point", "fields": ["Jurisdiction", "Category"], "on": "mouseover" }
+        }
+      ],
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "Jurisdiction",
+          "type": "nominal",
+          "title": "State/Territory",
+          "axis": { "labelAngle": -25 }
+        },
+        "y": { "field": "Area", "type": "quantitative", "title": "Area (ha)" },
+        "color": {
+          "field": "Category",
+          "type": "nominal",
+          "title": "Area Type",
+          "scale": {
+            "range": ["#3498db"] 
+          }
+        },
+        "opacity": { "condition": { "param": "fireBarHover", "value": 1 }, "value": 0.7 },
+        "tooltip": [
+          { "field": "Jurisdiction", "title": "State" },
+          { "field": "Category", "title": "Metric" },
+          { "field": "Area", "title": "Area", "format": ".1f" },
+          { "field": "Proportion of fire area that is forested (%)", "title": "Forest Share (%)", "format": ".1f" }
+        ]
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.Jurisdiction === 'New South Wales' && datum.Category === 'Forest area in fire area'" }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "fontWeight": "bold",
+        "color": "#e74c3c" 
+      },
+      "encoding": {
+        "x": { "field": "Jurisdiction", "type": "nominal" },
+        "y": { "field": "Area", "type": "quantitative" },
+        "text": { "value": "Largest forest fire area" }
+      }
+    }
+  ]
+}

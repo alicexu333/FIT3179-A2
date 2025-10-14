@@ -1,29 +1,49 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
-  "height": 650,
+  "width": "container",
+  "height": 300,
   "title": "Wildfires in Australia (2019-2020, NASA FIRMS)",
-  "projection": { "type": "mercator", "center": [133, -27], "scale": 900 },
+
+  "params": [
+    {
+      "name": "zoom_level",
+      "value": 400,
+      "bind": { "input": "range", "min": 250, "max": 2000, "step": 50, "name": "Zoom: " }
+    },
+    {
+      "name": "center_to",
+      "value": "none",
+      "bind": {
+        "input": "select",
+        "options": ["none", "East coast", "Victoria", "WA North", "NT Top End"],
+        "name": "Jump to: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "mercator",
+    "center": {
+      "expr": "center_to==='East coast' ? [150,-32] : center_to==='Victoria' ? [145,-37] : center_to==='WA North' ? [122,-19] : center_to==='NT Top End' ? [133,-12] : [133,-27]"
+    },
+    "scale": { "expr": "zoom_level" }
+  },
 
   "layer": [
-
     {
       "data": { "graticule": { "step": [10, 10] } },
-      "mark": { "type": "geoshape", "stroke": "#cfcfcf", "strokeWidth": 0.6 },
-      "encoding": {}
+      "mark": { "type": "geoshape", "stroke": "#cfcfcf", "strokeWidth": 0.6 }
     },
-
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/js/au-states-topo.json",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/js/au-states-topo.json",
         "format": { "type": "topojson", "feature": "austates" }
       },
       "mark": { "type": "geoshape", "fill": "#e6e6e6", "stroke": "white" }
     },
-
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/fires_sample.csv",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/data/fires_sample.csv",
         "format": { "type": "csv" }
       },
       "transform": [
@@ -49,14 +69,11 @@
           { "field": "latitude", "type": "quantitative" },
           { "field": "longitude", "type": "quantitative" }
         ]
-      
       }
     },
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/au_state_labels.csv"
-      },
-      "mark": { "type": "text", "fontSize": 12, "fontWeight": "bold", "fill": "#6b6b6b" },
+      "data": { "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/data/au_state_labels.csv" },
+      "mark": { "type": "text", "fontSize": 8, "fontWeight": "bold", "fill": "#6b6b6b" },
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
         "latitude":  { "field": "lat", "type": "quantitative" },
@@ -67,9 +84,7 @@
 
   "config": {
     "background": "#e3eef5",
-    "legend": { "orient": "bottom" },
+    "legend": { "orient": "right" },
     "view": { "stroke": null }
   }
 }
-
-

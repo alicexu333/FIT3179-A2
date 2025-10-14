@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Koala Sightings (Monthly, 2020)",
+  "data": { "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/koala_sightings_2020_clean.csv" },
+
+
+  "transform": [
+    { "calculate": "toDate('2020-' + datum.month_index + '-01')", "as": "date" }
+  ],
+
+  "vconcat": [
+    {
+      "width": "container",
+      "height": 240,
+      "mark": { "type": "area", "line": true, "point": true },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "scale": { "domain": { "param": "brush" } },
+          "axis": { "title": "", "tickCount": 12, "labelExpr": "timeFormat(datum.value, '%b')" }
+        },
+        "y": { "field": "count", "type": "quantitative", "title": "Koala sightings" },
+        "tooltip": [
+          { "field": "month_name", "title": "Month" },
+          { "field": "count", "title": "Sightings" }
+        ]
+      }
+    },
+    {
+      "width": "container",
+      "height": 60,
+      "mark": "area",
+      "params": [
+        { "name": "brush", "select": { "type": "interval", "encodings": ["x"] } }
+      ],
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "axis": { "tickCount": 12, "labelExpr": "timeFormat(datum.value, '%b')" }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "axis": { "tickCount": 3, "grid": false, "title": "" }
+        }
+      }
+    }
+  ]
+}
