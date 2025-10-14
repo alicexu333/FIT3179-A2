@@ -1,8 +1,69 @@
-#fire_map {
-	top:10px;
-	bottom: 100px; 
-	left: 100px;
-	right: 100px;
-	/*height: 1000px;
-	width: 800px;*/
+/* Light gray background for the whole page */
+body{
+  background: #f2f4f7;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;
+  line-height: 1.5;
+  color: #222;
+  margin: 0;
 }
+
+/* White frame (card) */
+.frame{
+  max-width: 980px;        /* Main page width */
+  margin: 48px auto;       /* Centered + vertical margin */
+  background: #fff;        /* White background */
+  border-radius: 16px;     /* Rounded corners */
+  padding: 32px 40px;      /* Padding */
+  box-shadow: 0 10px 30px rgba(0,0,0,.08); /* Shadow */
+}
+
+/* Optional heading/subheading styling */
+.frame h1{ margin: 0 0 8px; font-size: 32px; }
+.frame .lead{ margin: 0 0 24px; color:#555; }
+
+/* Two-column layout: left text, right chart */
+.row{
+  display: grid;
+  grid-template-columns: 1fr;   /* Single column on mobile */
+  gap: 24px;
+}
+@media (min-width: 900px){
+  .row{ grid-template-columns: 1.2fr 1fr; } /* Two columns on wide screens */
+}
+
+/* Chart container for vega-embed */
+.vis{
+  width: 100%;
+  /* To fix height, uncomment below: */
+  /* height: 460px; */
+}
+
+/* For multiple white cards, wrap with .card */
+.card{ margin-top: 32px; }
+
+.stack{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;  /* Center content */
+}
+
+.desc{
+  width: 680px;       /* Visually aligned with chart */
+  max-width: 100%;
+  text-align: left;   /* Change to center if you want centered text */
+}
+
+.stack{
+  display: flex;
+  flex-direction: column; /* vertical layout */
+  gap: 24px;
+  align-items: center;    /* center content */
+}
+
+.map-center{
+  width: 680px;           /* Change here for smaller/larger */
+  max-width: 100%;
+  margin: 0 auto;
+}
+
