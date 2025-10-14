@@ -36,14 +36,14 @@
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/js/au-states-topo.json",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/js/au-states-topo.json",
         "format": { "type": "topojson", "feature": "austates" }
       },
       "mark": { "type": "geoshape", "fill": "#e6e6e6", "stroke": "white" }
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/data/fires_sample.csv",
+        "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/fires_sample.csv",
         "format": { "type": "csv" }
       },
       "transform": [
