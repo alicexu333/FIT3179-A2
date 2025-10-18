@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <style>
     .vis { max-width: 900px; margin: 0 auto; }
-    .card { padding: 16px; border: 1px solid #eee; border-radius: 12px; margin: 16px auto; max-width: 1100px; }
+    .card { padding: 16px; border: 1px solid #eeeeee; border-radius: 12px; margin: 16px auto; max-width: 1100px; }
     .card h2 { margin-top: 0; }
     .frame { max-width: 1100px; margin: 0 auto; padding: 16px; }
     .map-center { display: block; margin: 0 auto; }
@@ -31,13 +31,20 @@
 </head>
 
 <body>
+
   <div class="frame">
     <h1>Wildfires & Koalas</h1>
     <p class="lead">Mapping the impact of bushfires on koala habitats in Australia</p>
+    <img 
+
+  src="koala_fire.jpg" 
+  alt="Firefighter rescuing a koala during bushfires" 
+  style="max-width: 400px; margin: 0 auto; display: block; margin-bottom: 24px;"
+>
 
     <div class="card">
       <h2>Australia bushfires map</h2>
-      <div id="fire_map" class="vis"></div>
+      <div id="fire_map" class="vis" style="display:flex;justify-content:center;"></div>
       <div class="desc">
         <h3 style="margin:12px 0 6px">About this map</h3>
         <p>Australia wildfires, 2019-2020: size = FRP, color = year; hotspots on the east coast.</p>
@@ -71,7 +78,7 @@
 
 <div class="card">
   <h2>Koala Sightings by Month (2020)</h2>
-  <div class="row">
+  <div class="row" style="align-items: center;">
 
     <div class="col viscol">
       <div id="koala_month_brush" class="vis"></div>
@@ -83,13 +90,30 @@
           peak in <strong>Oct-Nov</strong>, likely reflecting seasonal activity and
           post-fire habitat recovery after 2019-20.
         </p>
-        <p>
-          Use the lower overview to brush a time window and zoom the top chart.
-        </p>
       </div>
     </div>
   </div>
 </div>
+
+
+<div class="card">
+  <h2>Fire Counts vs. Koala Sightings (2020)</h2>
+  <div class="row" style="align-items: center;">
+    <div class="col">
+      <div class="left-desc">
+        <p style="margin-top:0">
+          Fires peak in <strong>Jan 2020</strong> (Black Summer) and then drop. 
+          Koala sightings rise in <strong>spring (Oct-Nov)</strong>, suggesting post-fire habitat recovery and reporting effort.
+        </p>
+      </div>
+    </div>
+    <div class="col viscol">
+      <div id="fire_koala_compare" class="vis"></div>
+    </div>
+  </div>
+</div>
+
+
 
 
   <script>
@@ -101,6 +125,10 @@
 
     vegaEmbed("#koala_month_brush", "js/line_fire_koala_2020.vg.json", { renderer: "svg", actions: false })
       .catch(console.error);
+
+    vegaEmbed("#fire_koala_compare", "js/line_fire_koala_compare.vg.json", { renderer: "svg", actions: false })
+      .catch(console.error);
+
   </script>
 </body>
 </html>
