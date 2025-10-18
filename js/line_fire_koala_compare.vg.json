@@ -1,0 +1,109 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Monthly Comparison: Fire Counts vs. Koala Sightings (2020)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/firms_fire_monthly_2020_counts.csv"
+  },
+
+  "transform": [
+    { "calculate": "toNumber(datum.month_index)", "as": "m" },
+    {
+      "lookup": "m",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/koala_sightings_2020_clean.csv"
+        },
+        "key": "month_index",
+        "fields": ["count"]
+      },
+      "as": ["koala_count"]
+    },
+    { "filter": "datum.m <= maxMonth" }
+  ],
+
+  "params": [
+    {
+      "name": "maxMonth",
+      "value": 12,
+      "bind": { "input": "range", "min": 1, "max": 12, "step": 1, "name": "To month: " }
+    }
+  ],
+
+  "width": "container",
+  "height": 320,
+
+  "encoding": {
+    "x": {
+      "field": "m",
+      "type": "ordinal",
+      "scale": { "domain": [1,2,3,4,5,6,7,8,9,10,11,12] },
+      "axis": {
+        "title": "Month",
+        "labelAngle": 0,
+        "labelExpr": "['January','February','March','April','May','June','July','August','September','October','November','December'][datum.value-1]"
+      }
+    }
+  },
+
+  "layer": [
+    {
+      "mark": { "type": "line", "strokeWidth": 3, "point": true, "color": "#e74c3c" },
+      "encoding": {
+        "y": { "field": "fire_count", "type": "quantitative", "title": "Fire count" },
+        "tooltip": [
+          { "field": "m", "title": "Month index" },
+          { "field": "month_name", "title": "Month" },
+          { "field": "fire_count", "title": "Fire count", "format": "," }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "line", "strokeWidth": 3, "point": true, "color": "#3498db" },
+      "encoding": {
+        "y": { "field": "koala_count", "type": "quantitative", "title": "Koala sightings" },
+        "tooltip": [
+          { "field": "m", "title": "Month index" },
+          { "field": "month_name", "title": "Month" },
+          { "field": "koala_count", "title": "Koala sightings", "format": "," }
+        ]
+      }
+    },
+
+    {
+      "transform": [{ "filter": "datum.m == 1" }],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": -1,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#e74c3c"
+      },
+      "encoding": {
+        "y": { "field": "fire_count", "type": "quantitative", "axis": null },
+        "text": { "value": "🔥 Peak of bushfires - Jan 2020 (Black Summer)" }
+      }
+    },
+
+    {
+      "transform": [{ "filter": "datum.m == 11" }],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dy": -1,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#3498db"
+      },
+      "encoding": {
+        "y": { "field": "koala_count", "type": "quantitative", "axis": null },
+        "text": { "value": "🐨 Koala sightings peak (Spring 2020)" }
+      }
+    }
+  ],
+
+  "resolve": { "scale": { "y": "independent" } },
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 14 }
+  }
+}

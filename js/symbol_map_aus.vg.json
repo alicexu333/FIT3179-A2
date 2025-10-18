@@ -72,7 +72,7 @@
       }
     },
     {
-      "data": { "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/main/data/au_state_labels.csv" },
+      "data": { "url": "https://raw.githubusercontent.com/alicexu333/FIT3179-A2/refs/heads/main/data/au_state_labels.csv" },
       "mark": { "type": "text", "fontSize": 8, "fontWeight": "bold", "fill": "#6b6b6b" },
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
