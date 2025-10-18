@@ -1,6 +1,6 @@
 /* Light gray background for the whole page */
 body{
-  background: #f2f4f7;
+  background: #d3edb1;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;
   line-height: 1.5;
   color: #222;
@@ -18,8 +18,11 @@ body{
 }
 
 /* Optional heading/subheading styling */
-.frame h1{ margin: 0 0 8px; font-size: 32px; }
-.frame .lead{ margin: 0 0 24px; color:#555; }
+.frame h1{ margin: 0 0 8px; font-size: 32px; text-align: center}
+.frame .lead{ margin: 0 0 24px; color:#555; text-align: center}
+.card h2 {
+  text-align: center;
+}
 
 /* Two-column layout: left text, right chart */
 .row{
@@ -52,6 +55,7 @@ body{
   width: 680px;       /* Visually aligned with chart */
   max-width: 100%;
   text-align: left;   /* Change to center if you want centered text */
+
 }
 
 .stack{
